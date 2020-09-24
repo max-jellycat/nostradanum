@@ -5,9 +5,10 @@ import { Text as RNText } from 'react-native';
 import { Colors, FontSizes } from '../constants';
 
 const Text = ({
-  color, size, isBold, children, style,
+  color, size, isBold, children, style, ...props
 }) => (
   <RNText
+    {...props}
     style={{
       ...style,
       color: Colors[color],

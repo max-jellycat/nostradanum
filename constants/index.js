@@ -8,6 +8,7 @@ export const Colors = {
 export const Sizes = {
   small: 5,
   medium: 10,
+  mediumLarge: 15,
   large: 20,
   huge: 30,
 };
