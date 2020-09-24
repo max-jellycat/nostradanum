@@ -10,9 +10,10 @@ const Input = ({ style, ...props }) => (
 
 const styles = StyleSheet.create({
   input: {
-    height: Sizes.huge,
     borderBottomColor: Colors.gray,
     borderBottomWidth: 1,
+    borderRadius: Sizes.medium,
+    padding: Sizes.small,
     marginVertical: Sizes.medium,
   },
 });

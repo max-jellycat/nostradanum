@@ -18,4 +18,6 @@ export const FontSizes = {
   default: 16,
   medium: 18,
   large: 20,
+  larger: 30,
+  huge: 60,
 };

@@ -5,7 +5,7 @@ import { Text as RNText } from 'react-native';
 import { Colors, FontSizes } from '../constants';
 
 const Text = ({
-  color, size, isBold, children, style, ...props
+  color, size, isBold, centered, children, style, ...props
 }) => (
   <RNText
     {...props}
@@ -14,6 +14,7 @@ const Text = ({
       color: Colors[color],
       fontSize: FontSizes[size],
       fontWeight: isBold ? 'bold' : 'normal',
+      textAlign: centered ? 'center' : 'left',
     }}
   >
     { children }
@@ -24,6 +25,7 @@ Text.propTypes = {
   color: PropTypes.string,
   size: PropTypes.string,
   isBold: PropTypes.bool,
+  centered: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
@@ -35,6 +37,7 @@ Text.defaultProps = {
   color: 'dark',
   size: 'default',
   isBold: false,
+  centered: false,
   style: {},
 };
 
