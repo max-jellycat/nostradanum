@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+
+import { Colors } from '../constants';
+import Text from './Text';
 
 const Header = ({ title }) => (
   <View style={styles.header}>
-    <Text style={styles.headerTitle}>{title}</Text>
+    <Text color="light" size="medium" isBold>{title}</Text>
   </View>
 );
 
@@ -13,15 +16,9 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 90,
     paddingTop: 36,
-    backgroundColor: '#fd79a8',
+    backgroundColor: Colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-
-  headerTitle: {
-    color: '#2d3436',
-    fontSize: 18,
-    fontWeight: '600',
   },
 });
 
