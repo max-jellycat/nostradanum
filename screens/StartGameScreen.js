@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   StyleSheet, View, Button, TouchableWithoutFeedback, Keyboard, Alert,
 } from 'react-native';
@@ -7,8 +8,9 @@ import Card from '../components/Card';
 import Text from '../components/Text';
 import Input from '../components/Input';
 import { Colors, Sizes, FontSizes } from '../constants';
+import NumberContainer from '../components/NumberContainer';
 
-const StartGameScreen = () => {
+const StartGameScreen = ({ onStartGame }) => {
   const [value, setValue] = useState('');
   const [confirmed, setConfirmed] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState(null);
@@ -71,10 +73,8 @@ const StartGameScreen = () => {
         {confirmed && (
           <Card style={styles.summaryContainer}>
             <Text>You selected</Text>
-            <View style={styles.summaryNumber}>
-              <Text color="primary" size="huge" isBold>{selectedNumber}</Text>
-            </View>
-            <Button title="START GAME" />
+            <NumberContainer number={selectedNumber} />
+            <Button title="START GAME" onPress={() => onStartGame(selectedNumber)} />
           </Card>
         )}
       </View>
@@ -119,16 +119,10 @@ const styles = StyleSheet.create({
     width: '60%',
     alignItems: 'center',
   },
-  summaryNumber: {
-    width: 110,
-    borderWidth: 2,
-    borderColor: Colors.primary,
-    borderRadius: Sizes.medium,
-    padding: Sizes.medium,
-    marginVertical: Sizes.medium,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 });
+
+StartGameScreen.propTypes = {
+  onStartGame: PropTypes.func.isRequired,
+};
 
 export default StartGameScreen;
