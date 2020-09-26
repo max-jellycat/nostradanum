@@ -13,7 +13,7 @@ const Text = ({
       ...style,
       color: Colors[color],
       fontSize: FontSizes[size],
-      fontWeight: isBold ? 'bold' : 'normal',
+      fontFamily: isBold ? 'open-sans-bold' : 'open-sans',
       textAlign: centered ? 'center' : 'left',
     }}
   >

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
+import * as Font from 'expo-font';
 
 import Header from './components/Header';
 import StartGameScreen from './screens/StartGameScreen';
@@ -9,6 +10,17 @@ import GameOverScreen from './screens/GameOverScreen';
 export default () => {
   const [userNumber, setUserNumber] = useState(null);
   const [guessRounds, setGuessRounds] = useState(0);
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      await Font.loadAsync({
+        'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
+        'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
+      });
+      setDataLoaded(true);
+    })();
+  });
 
   const startGameHandler = (selectedNumber) => {
     setUserNumber(selectedNumber);
@@ -39,10 +51,14 @@ export default () => {
   }
 
   return (
-    <View style={styles.screen}>
-      <Header title="Guess a Number" />
-      {content}
-    </View>
+    <>
+      {dataLoaded && (
+        <View style={styles.screen}>
+          <Header title="Guess a Number" />
+          {content}
+        </View>
+      )}
+    </>
   );
 };
 
