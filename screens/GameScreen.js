@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, StyleSheet, Button, Alert,
+  View, StyleSheet, Alert,
 } from 'react-native';
 
 import Text from '../components/Text';
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
+import Button from '../components/Button';
 import { Sizes } from '../constants';
 
 const generateRandomBetween = (min, max, exclude) => {
@@ -66,12 +67,8 @@ const GameScreen = ({ userChoice, onGameOver }) => {
       <Text>Opponent&apos;s Guess</Text>
       <NumberContainer number={currentGuess} />
       <Card style={styles.buttons}>
-        <View style={styles.button}>
-          <Button title="Lower" onPress={() => nextGuessHandler('lower')} />
-        </View>
-        <View style={styles.button}>
-          <Button title="Greater" onPress={() => nextGuessHandler('greater')} />
-        </View>
+        <Button style={styles.button} variant="primary" onPress={() => nextGuessHandler('lower')}>Lower</Button>
+        <Button style={styles.button} variant="primary" onPress={() => nextGuessHandler('greater')}>Greater</Button>
       </Card>
     </View>
   );
@@ -93,7 +90,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    width: 100,
+    width: 110,
   },
 });
 

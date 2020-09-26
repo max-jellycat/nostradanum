@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  StyleSheet, View, Button, TouchableWithoutFeedback, Keyboard, Alert,
+  StyleSheet, View, TouchableWithoutFeedback, Keyboard, Alert,
 } from 'react-native';
 
 import Card from '../components/Card';
 import Text from '../components/Text';
 import Input from '../components/Input';
+import Button from '../components/Button';
 import { Colors, Sizes, FontSizes } from '../constants';
 import NumberContainer from '../components/NumberContainer';
 
@@ -62,19 +63,15 @@ const StartGameScreen = ({ onStartGame }) => {
             onChangeText={numberInputHandler}
           />
           <View style={styles.inputButtons}>
-            <View style={styles.button}>
-              <Button title="Reset" color={Colors.gray} onPress={resetInputHandler} />
-            </View>
-            <View style={styles.button}>
-              <Button title="Confirm" color={Colors.primary} onPress={confirmInputHandler} />
-            </View>
+            <Button variant="gray" style={styles.button} onPress={resetInputHandler}>Reset</Button>
+            <Button variant="primary" style={styles.button} onPress={confirmInputHandler}>Confirm</Button>
           </View>
         </Card>
         {confirmed && (
           <Card style={styles.summaryContainer}>
             <Text>You selected</Text>
             <NumberContainer number={selectedNumber} />
-            <Button title="START GAME" onPress={() => onStartGame(selectedNumber)} />
+            <Button style={styles.startButton} variant="gold" onPress={() => onStartGame(selectedNumber)}>Start Game</Button>
           </Card>
         )}
       </View>
@@ -101,7 +98,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    paddingHorizontal: Sizes.mediumLarge,
+    paddingHorizontal: Sizes.medium,
+    paddingTop: Sizes.large,
   },
   input: {
     height: 50,
@@ -111,12 +109,16 @@ const styles = StyleSheet.create({
     fontSize: FontSizes.large,
   },
   button: {
-    width: 100,
+    width: 110,
   },
   summaryContainer: {
     marginTop: Sizes.large,
     width: '60%',
     alignItems: 'center',
+  },
+
+  startButton: {
+    marginTop: Sizes.medium,
   },
 });
 
