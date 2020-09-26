@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   View, StyleSheet, Button, Alert,
@@ -21,14 +21,21 @@ const generateRandomBetween = (min, max, exclude) => {
   return random;
 };
 
-const GameScreen = ({ userChoice }) => {
+const GameScreen = ({ userChoice, onGameOver }) => {
   const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(
     1,
     100,
     userChoice,
   ));
+  const [rounds, setRounds] = useState(0);
   const currentLowest = useRef(1);
   const currentHighest = useRef(100);
+
+  useEffect(() => {
+    if (currentGuess === userChoice) {
+      onGameOver(rounds);
+    }
+  }, [currentGuess, userChoice, onGameOver]);
 
   const nextGuessHandler = (direction) => {
     if ((direction === 'lower' && currentGuess < userChoice) || (direction === 'greater' && currentGuess > userChoice)) {
@@ -51,6 +58,7 @@ const GameScreen = ({ userChoice }) => {
       currentHighest.current,
       currentGuess,
     ));
+    setRounds((current) => current + 1);
   };
 
   return (
@@ -91,6 +99,7 @@ const styles = StyleSheet.create({
 
 GameScreen.propTypes = {
   userChoice: PropTypes.number.isRequired,
+  onGameOver: PropTypes.func.isRequired,
 };
 
 export default GameScreen;
