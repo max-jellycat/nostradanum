@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     borderRadius: Sizes.medium,
     padding: Sizes.small,
     marginVertical: Sizes.medium,
+    fontFamily: 'open-sans',
   },
 });
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import * as Font from 'expo-font';
 
 import Header from './components/Header';
@@ -54,7 +54,11 @@ export default () => {
     <>
       {dataLoaded && (
         <View style={styles.screen}>
-          <Header title="Guess a Number" />
+          <Image
+            source={require('./assets/nostradamus.png')}
+            style={styles.backgroundImage}
+          />
+          <Header title="Nostradanum" />
           {content}
         </View>
       )}
@@ -65,5 +69,13 @@ export default () => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+  },
+  backgroundImage: {
+    width: '100%',
+    height: '40%',
+    position: 'absolute',
+    bottom: 0,
+    resizeMode: 'contain',
+    opacity: 0.2,
   },
 });

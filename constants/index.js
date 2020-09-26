@@ -2,7 +2,7 @@ export const Colors = {
   dark: '#2d3436',
   light: '#dfe6e9',
   gray: '#b2bec3',
-  primary: '#fd79a8',
+  primary: '#74b9ff',
 };
 
 export const Sizes = {
