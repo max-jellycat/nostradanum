@@ -1,14 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, StyleSheet, Alert,
+  View, StyleSheet, Alert, ScrollView,
 } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 
 import Text from '../components/Text';
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
 import Button from '../components/Button';
-import { Sizes } from '../constants';
+import { Colors, FontSizes, Sizes } from '../constants';
 
 const generateRandomBetween = (min, max, exclude) => {
   min = Math.ceil(min);
@@ -22,19 +23,27 @@ const generateRandomBetween = (min, max, exclude) => {
   return random;
 };
 
+const ListItem = ({ item, nRound }) => (
+  <View key={item} style={styles.listItem}>
+    <Text color="gray" size="large">{`#${nRound}`}</Text>
+    <Text size="large" isBold>{item}</Text>
+  </View>
+);
+
 const GameScreen = ({ userChoice, onGameOver }) => {
-  const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(
+  const initialGuess = generateRandomBetween(
     1,
     100,
     userChoice,
-  ));
-  const [rounds, setRounds] = useState(0);
+  );
+  const [currentGuess, setCurrentGuess] = useState(initialGuess);
+  const [pastGuesses, setPastGuesses] = useState([initialGuess]);
   const currentLowest = useRef(1);
   const currentHighest = useRef(100);
 
   useEffect(() => {
     if (currentGuess === userChoice) {
-      onGameOver(rounds);
+      onGameOver(pastGuesses.length);
     }
   }, [currentGuess, userChoice, onGameOver]);
 
@@ -51,15 +60,17 @@ const GameScreen = ({ userChoice, onGameOver }) => {
     if (direction === 'lower') {
       currentHighest.current = currentGuess;
     } else {
-      currentLowest.current = currentGuess;
+      currentLowest.current = currentGuess + 1;
     }
 
-    setCurrentGuess(generateRandomBetween(
+    const nextNumber = generateRandomBetween(
       currentLowest.current,
       currentHighest.current,
       currentGuess,
-    ));
-    setRounds((current) => current + 1);
+    );
+
+    setCurrentGuess(nextNumber);
+    setPastGuesses((current) => [nextNumber, ...current]);
   };
 
   return (
@@ -67,9 +78,20 @@ const GameScreen = ({ userChoice, onGameOver }) => {
       <Text>Opponent&apos;s Guess</Text>
       <NumberContainer number={currentGuess} />
       <Card style={styles.buttons}>
-        <Button style={styles.button} variant="primary" onPress={() => nextGuessHandler('lower')}>Lower</Button>
-        <Button style={styles.button} variant="primary" onPress={() => nextGuessHandler('greater')}>Greater</Button>
+        <Button style={styles.button} variant="primary" onPress={() => nextGuessHandler('lower')}>
+          <FontAwesome name="minus" size={FontSizes.medium} color={Colors.white} />
+        </Button>
+        <Button style={styles.button} variant="primary" onPress={() => nextGuessHandler('greater')}>
+          <FontAwesome name="plus" size={FontSizes.medium} color={Colors.white} />
+        </Button>
       </Card>
+      <View style={styles.list}>
+        <ScrollView contentContainerStyle={styles.scrollView}>
+          {pastGuesses.map((guess, index) => (
+            <ListItem key={guess} item={guess} nRound={pastGuesses.length - index} />
+          ))}
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -80,7 +102,6 @@ const styles = StyleSheet.create({
     padding: Sizes.medium,
     alignItems: 'center',
   },
-
   buttons: {
     width: 300,
     maxWidth: '80%',
@@ -88,15 +109,41 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-
   button: {
     width: 110,
+  },
+  list: {
+    width: 300,
+    maxWidth: '80%',
+    marginTop: Sizes.large,
+    flex: 1,
+  },
+  scrollView: {
+    flexGrow: 1,
+    alignItems: 'center',
+  },
+  listItem: {
+    width: '100%',
+    borderWidth: 1,
+    borderColor: Colors.light,
+    backgroundColor: Colors.white,
+    borderRadius: 10,
+    padding: Sizes.medium,
+    paddingRight: Sizes.larger,
+    marginVertical: Sizes.small,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 
 GameScreen.propTypes = {
   userChoice: PropTypes.number.isRequired,
   onGameOver: PropTypes.func.isRequired,
+};
+
+ListItem.propTypes = {
+  item: PropTypes.number.isRequired,
+  nRound: PropTypes.number.isRequired,
 };
 
 export default GameScreen;
