@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, StyleSheet, Alert, ScrollView, Dimensions,
+  View, StyleSheet, Alert, ScrollView,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
