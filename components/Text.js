@@ -16,6 +16,7 @@ const Text = ({
       fontFamily: isBold ? 'open-sans-bold' : 'open-sans',
       textAlign: centered ? 'center' : 'left',
     }}
+    allowFontScaling={false}
   >
     { children }
   </RNText>

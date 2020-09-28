@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   StyleSheet, View, TouchableWithoutFeedback, Keyboard, Alert,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import Card from '../components/Card';
 import Text from '../components/Text';
@@ -10,6 +11,7 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import { Colors, Sizes, FontSizes } from '../constants';
 import NumberContainer from '../components/NumberContainer';
+import normalize from '../utils/normalize';
 
 const StartGameScreen = ({ onStartGame }) => {
   const [value, setValue] = useState('');
@@ -91,8 +93,9 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     alignItems: 'center',
-    width: 300,
-    maxWidth: '80%',
+    width: '80%',
+    minWidth: normalize(300),
+    maxWidth: '95%',
   },
   inputButtons: {
     flexDirection: 'row',
@@ -102,14 +105,14 @@ const styles = StyleSheet.create({
     paddingTop: Sizes.large,
   },
   input: {
-    height: 50,
-    width: 80,
+    height: normalize(50),
+    width: normalize(80),
     color: Colors.primary,
     textAlign: 'center',
     fontSize: FontSizes.large,
   },
   button: {
-    width: 110,
+    width: normalize(110),
   },
   summaryContainer: {
     marginTop: Sizes.large,

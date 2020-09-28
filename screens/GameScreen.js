@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, StyleSheet, Alert, ScrollView,
+  View, StyleSheet, Alert, ScrollView, Dimensions,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -10,6 +10,7 @@ import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
 import Button from '../components/Button';
 import { Colors, FontSizes, Sizes } from '../constants';
+import normalize from '../utils/normalize';
 
 const generateRandomBetween = (min, max, exclude) => {
   min = Math.ceil(min);
@@ -103,18 +104,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttons: {
-    width: 300,
-    maxWidth: '80%',
-    marginTop: Sizes.medium,
+    width: '80%',
+    minWidth: normalize(300),
+    maxWidth: '95%',
+    marginTop: Sizes.large,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   button: {
-    width: 110,
+    width: normalize(110),
   },
   list: {
-    width: 300,
-    maxWidth: '80%',
+    width: '80%',
+    minWidth: normalize(300),
+    maxWidth: '95%',
     marginTop: Sizes.large,
     flex: 1,
   },

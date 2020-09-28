@@ -8,6 +8,7 @@ import Card from '../components/Card';
 import Button from '../components/Button';
 import { Colors, Sizes } from '../constants';
 import NumberContainer from '../components/NumberContainer';
+import normalize from '../utils/normalize';
 
 const GameOverScreen = ({ numRounds, userNumber, onNewGame }) => (
   <View style={styles.screen}>
@@ -36,16 +37,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    width: 150,
-    height: 150,
-    marginVertical: Sizes.large,
+    width: normalize(150),
+    height: normalize(150),
+    marginVertical: Sizes.larger,
     backgroundColor: Colors.gold,
-    borderRadius: 75,
+    borderRadius: normalize(75),
     justifyContent: 'center',
     alignItems: 'center',
   },
   infos: {
     width: '80%',
+    minWidth: normalize(300),
+    maxWidth: '95%',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
