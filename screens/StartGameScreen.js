@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {
   StyleSheet, View, TouchableWithoutFeedback, Keyboard, Alert,
 } from 'react-native';
-import { useTranslation } from 'react-i18next';
 
 import Card from '../components/Card';
 import Text from '../components/Text';

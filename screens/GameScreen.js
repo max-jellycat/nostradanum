@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, StyleSheet, Alert, ScrollView,
+  View, StyleSheet, Alert, ScrollView, SafeAreaView,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -75,29 +75,34 @@ const GameScreen = ({ userChoice, onGameOver }) => {
   };
 
   return (
-    <View style={styles.screen}>
-      <Text>Opponent&apos;s Guess</Text>
-      <NumberContainer number={currentGuess} />
-      <Card style={styles.buttons}>
-        <Button style={styles.button} variant="primary" onPress={() => nextGuessHandler('lower')}>
-          <FontAwesome name="minus" size={FontSizes.medium} color={Colors.white} />
-        </Button>
-        <Button style={styles.button} variant="primary" onPress={() => nextGuessHandler('greater')}>
-          <FontAwesome name="plus" size={FontSizes.medium} color={Colors.white} />
-        </Button>
-      </Card>
-      <View style={styles.list}>
-        <ScrollView contentContainerStyle={styles.scrollView}>
-          {pastGuesses.map((guess, index) => (
-            <ListItem key={guess} item={guess} nRound={pastGuesses.length - index} />
-          ))}
-        </ScrollView>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.screen}>
+        <Text>Opponent&apos;s Guess</Text>
+        <NumberContainer number={currentGuess} />
+        <Card style={styles.buttons}>
+          <Button style={styles.button} variant="primary" onPress={() => nextGuessHandler('lower')}>
+            <FontAwesome name="minus" size={FontSizes.medium} color={Colors.white} />
+          </Button>
+          <Button style={styles.button} variant="primary" onPress={() => nextGuessHandler('greater')}>
+            <FontAwesome name="plus" size={FontSizes.medium} color={Colors.white} />
+          </Button>
+        </Card>
+        <View style={styles.list}>
+          <ScrollView contentContainerStyle={styles.scrollView}>
+            {pastGuesses.map((guess, index) => (
+              <ListItem key={guess} item={guess} nRound={pastGuesses.length - index} />
+            ))}
+          </ScrollView>
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
   screen: {
     flex: 1,
     padding: Sizes.medium,

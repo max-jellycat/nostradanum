@@ -5,6 +5,7 @@ import { View, StyleSheet } from 'react-native';
 
 import Text from './Text';
 import { Colors, Sizes } from '../constants';
+import normalize from '../utils/normalize';
 
 const NumberContainer = ({ number }) => (
   <View style={styles.container}>
@@ -14,7 +15,7 @@ const NumberContainer = ({ number }) => (
 
 const styles = StyleSheet.create({
   container: {
-    width: 110,
+    width: normalize(100),
     borderWidth: 2,
     borderColor: Colors.primary,
     borderRadius: Sizes.medium,
